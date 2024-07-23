@@ -1,15 +1,15 @@
-CC := gcc
-CFLAGS := -Isrc -std=c11 -Wall
+CC := g++
+CFLAGS := -Isrc -std=c++11 -Wall
 LDFLAGS := -lncurses
 BINDIR := bin
 OBJDIR := obj
 SRCDIR := src
 TARGET := Roguelike
 
-# Use wildcard function to compile all .c files in the src directory
-SOURCES=$(wildcard $(SRCDIR)/*.c)
-# Convert the *.c filenames to *.o to give a list of object files to build
-OBJECTS=$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES))
+# Use wildcard function to compile all .cpp files in the src directory
+SOURCES=$(wildcard $(SRCDIR)/*.cpp)
+# Convert the *.cpp filenames to *.o to give a list of object files to build
+OBJECTS=$(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SOURCES))
 
 .PHONY: all test clean
 
@@ -21,8 +21,8 @@ $(BINDIR)/$(TARGET): $(OBJECTS)
 	mkdir -p $(BINDIR)
 	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
-# Compile all .c to .o
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+# Compile all .cpp to .o
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	mkdir -p $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -35,3 +35,4 @@ clean:
 
 run: all
 	./$(BINDIR)/$(TARGET)
+
